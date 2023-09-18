@@ -1,4 +1,12 @@
+# Dependencies
 node_modules
-tmp/*
+
+# Database
+tmp/*.sqlite
+
+# Enviroment
 .vscode
 .env
+
+# Build
+build
