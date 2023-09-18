@@ -21,10 +21,12 @@ export class RegisterUseCase {
 
     const passwordHash = await hash(password, 6);
 
-    await this.usersRepository.create({
+    const user = await this.usersRepository.create({
       email,
       name,
       password_hash: passwordHash,
     });
+
+    return user;
   }
 }
