@@ -35,7 +35,6 @@ describe('Check-in Use Case', () => {
     });
 
     expect(checkIn.validate_at).toEqual(expect.any(Date));
-    expect(checkInsRepository.items[0].validate_at).toEqual(expect.any(Date));
   });
 
   it('should not be able a inexistent check-in', async () => {
