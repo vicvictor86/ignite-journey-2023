@@ -1,7 +1,8 @@
-import { Entity } from '@/core/entities/Entity';
 import { UniqueEntityId } from '@/core/entities/UniqueEntityId';
 import { Optional } from '@/core/types/optional';
 import { Slug } from './valueObjects/Slug';
+import { AggregateRoot } from '@/core/entities/aggregateRoot';
+import { QuestionAttachmentList } from './QuestionAttachmentList';
 
 export interface QuestionProps {
   authorId: UniqueEntityId;
@@ -9,15 +10,17 @@ export interface QuestionProps {
   title: string;
   slug: Slug;
   content: string;
+  attachments: QuestionAttachmentList;
   createdAt: Date;
   updatedAt?: Date;
 }
 
-export class Question extends Entity<QuestionProps> {
-  static create(props: Optional<QuestionProps, 'createdAt' | 'slug'>, id?: UniqueEntityId) {
+export class Question extends AggregateRoot<QuestionProps> {
+  static create(props: Optional<QuestionProps, 'createdAt' | 'slug' | 'attachments'>, id?: UniqueEntityId) {
     const question = new Question({
       ...props,
       slug: props.slug ?? Slug.createFromText(props.title),
+      attachments: props.attachments ?? new QuestionAttachmentList(),
       createdAt: props.createdAt ?? new Date(),
     }, id);
 
@@ -34,6 +37,13 @@ export class Question extends Entity<QuestionProps> {
   }
 
   get slug() { return this.props.slug; }
+
+  get attachments() { return this.props.attachments; }
+
+  set attachments(attachments: QuestionAttachmentList) {
+    this.props.attachments = attachments;
+    this.touch();
+  }
 
   get title() { return this.props.title; }
 

@@ -1,4 +1,4 @@
-import { Either, left, right } from '@/core/either';
+import { Either, left, right } from '@/core/Either';
 import { UniqueEntityId } from '../../../../core/entities/UniqueEntityId';
 import { QuestionComment } from '../../enterprise/entities/QuestionComment';
 import { QuestionCommentsRepository } from '../repositories/questionCommentsRepository';

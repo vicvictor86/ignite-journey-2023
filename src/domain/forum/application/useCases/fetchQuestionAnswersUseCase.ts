@@ -1,4 +1,4 @@
-import { Either, right } from '@/core/either';
+import { Either, right } from '@/core/Either';
 import { Answer } from '../../enterprise/entities/Answer';
 import { AnswersRepository } from '../repositories/answersRepository';
 

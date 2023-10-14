@@ -1,9 +1,9 @@
-import { Either, left, right } from '@/core/either';
 import { Question } from '../../enterprise/entities/Question';
 import { AnswersRepository } from '../repositories/answersRepository';
 import { QuestionsRepository } from '../repositories/questionsRepository';
 import { ResourceNotFoundError } from './errors/resourceNotFound';
 import { NotAllowedError } from './errors/notAllowedErrors';
+import { Either, left, right } from '@/core/Either';
 
 interface ChooseQuestionBestAnswerUseCaseRequest {
   authorId: string;
