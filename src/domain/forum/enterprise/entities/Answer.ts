@@ -1,7 +1,8 @@
-import { Entity } from '@/core/entities/Entity';
 import { UniqueEntityId } from '@/core/entities/UniqueEntityId';
 import { Optional } from '@/core/types/optional';
 import { AnswerAttachmentList } from './AnswerAttachmentList';
+import { AggregateRoot } from '@/core/entities/aggregateRoot';
+import { AnswerCreateEvent } from '../events/answerCreateEvent';
 
 export interface AnswerProps {
   authorId: UniqueEntityId;
@@ -12,7 +13,7 @@ export interface AnswerProps {
   updatedAt?: Date;
 }
 
-export class Answer extends Entity<AnswerProps> {
+export class Answer extends AggregateRoot<AnswerProps> {
   get authorId() { return this.props.authorId; }
 
   get questionId() { return this.props.questionId; }
@@ -52,6 +53,12 @@ export class Answer extends Entity<AnswerProps> {
       attachments: props.attachments ?? new AnswerAttachmentList(),
       createdAt: props.createdAt ?? new Date(),
     }, id);
+
+    const isNewAnswer = !id;
+
+    if (isNewAnswer) {
+      answer.addDomainEvent(new AnswerCreateEvent(answer));
+    }
 
     return answer;
   }

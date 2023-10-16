@@ -4,7 +4,7 @@ import { InMemoryAnswersAttachmentsRepository } from 'tests/repositories/InMemor
 import { makeAnswerAttachments } from 'tests/factories/makeAnswersAttachments';
 import { UniqueEntityId } from '@/core/entities/UniqueEntityId';
 import { DeleteAnswerUseCase } from './deleteAnswerUseCase';
-import { NotAllowedError } from './errors/notAllowedErrors';
+import { NotAllowedError } from '../../../../core/errors/notAllowedErrors';
 
 let inMemoryAnswersAttachmentsRepository: InMemoryAnswersAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;

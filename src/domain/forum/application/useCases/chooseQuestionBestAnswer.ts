@@ -1,8 +1,8 @@
 import { Question } from '../../enterprise/entities/Question';
 import { AnswersRepository } from '../repositories/answersRepository';
 import { QuestionsRepository } from '../repositories/questionsRepository';
-import { ResourceNotFoundError } from './errors/resourceNotFound';
-import { NotAllowedError } from './errors/notAllowedErrors';
+import { ResourceNotFoundError } from '../../../../core/errors/resourceNotFound';
+import { NotAllowedError } from '../../../../core/errors/notAllowedErrors';
 import { Either, left, right } from '@/core/Either';
 
 interface ChooseQuestionBestAnswerUseCaseRequest {
@@ -41,7 +41,7 @@ export class ChooseQuestionBestAnswerUseCase {
       return left(new NotAllowedError());
     }
 
-    question.bestAnswerId = answer.id;
+    question.bestAnswer = answer.id;
 
     await this.questionsRepository.save(question);
 

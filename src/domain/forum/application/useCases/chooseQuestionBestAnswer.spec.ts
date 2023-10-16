@@ -6,7 +6,7 @@ import { InMemoryQuestionAttachmentsRepository } from 'tests/repositories/InMemo
 import { InMemoryAnswersAttachmentsRepository } from 'tests/repositories/InMemoryAnswerAttachmentsRepository';
 import { UniqueEntityId } from '@/core/entities/UniqueEntityId';
 import { ChooseQuestionBestAnswerUseCase } from './chooseQuestionBestAnswer';
-import { NotAllowedError } from './errors/notAllowedErrors';
+import { NotAllowedError } from '../../../../core/errors/notAllowedErrors';
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
