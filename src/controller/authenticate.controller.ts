@@ -1,11 +1,11 @@
 import {
   UsePipes, Controller, Post, Body, UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { z } from 'zod';
-import { ZodValidationPipe } from 'src/pipes/zodValidationPipe';
 import { compare } from 'bcrypt';
+import { ZodValidationPipe } from '@/pipes/zodValidationPipe';
+import { PrismaService } from '@/prisma/prisma.service';
 
 const authenticateBodySchema = z.object({
   email: z.string().email(),
