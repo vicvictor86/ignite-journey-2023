@@ -3,7 +3,7 @@ import {
 } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '@/infra/http/pipes/zodValidationPipe';
-import { AuthenticateStudentUseCase } from '@/domain/forum/application/useCases/authenticateStudent';
+import { AuthenticateStudentUseCase } from '@/domain/forum/application/useCases/authenticateStudentUseCase';
 import { WrongCredentialsError } from '@/domain/forum/application/useCases/errors/wrongCredetialsErrors';
 import { Public } from '@/infra/auth/public';
 

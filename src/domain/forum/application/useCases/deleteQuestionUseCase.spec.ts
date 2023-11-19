@@ -1,7 +1,7 @@
 import { InMemoryQuestionsRepository } from 'test/repositories/InMemoryQuestionsRepository';
 import { makeQuestion } from 'test/factories/makeQuestion';
 import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/InMemoryQuestionAttachmentsRepository';
-import { makeQuestionAttachments } from 'test/factories/makeQuestionAttachments';
+import { makeQuestionAttachment } from 'test/factories/makeQuestionAttachments';
 import { UniqueEntityId } from '@/core/entities/UniqueEntityId';
 import { DeleteQuestionUseCase } from './deleteQuestionUseCase';
 import { NotAllowedError } from '../../../../core/errors/notAllowedErrors';
@@ -27,11 +27,11 @@ describe('Delete Question Use Case', () => {
     await inMemoryQuestionsRepository.create(newQuestion);
 
     inMemoryQuestionAttachmentsRepository.items.push(
-      makeQuestionAttachments({
+      makeQuestionAttachment({
         questionId: newQuestion.id,
         attachmentId: new UniqueEntityId('1'),
       }),
-      makeQuestionAttachments({
+      makeQuestionAttachment({
         questionId: newQuestion.id,
         attachmentId: new UniqueEntityId('2'),
       }),

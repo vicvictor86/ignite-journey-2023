@@ -1,7 +1,7 @@
 import { InMemoryQuestionsRepository } from 'test/repositories/InMemoryQuestionsRepository';
 import { makeQuestion } from 'test/factories/makeQuestion';
 import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/InMemoryQuestionAttachmentsRepository';
-import { makeQuestionAttachments } from 'test/factories/makeQuestionAttachments';
+import { makeQuestionAttachment } from 'test/factories/makeQuestionAttachments';
 import { UniqueEntityId } from '@/core/entities/UniqueEntityId';
 import { EditQuestionUseCase } from './editQuestionUseCase';
 import { NotAllowedError } from '../../../../core/errors/notAllowedErrors';
@@ -30,11 +30,11 @@ describe('Edit Question Use Case', () => {
     await inMemoryQuestionsRepository.create(newQuestion);
 
     inMemoryQuestionAttachmentsRepository.items.push(
-      makeQuestionAttachments({
+      makeQuestionAttachment({
         questionId: newQuestion.id,
         attachmentId: new UniqueEntityId('1'),
       }),
-      makeQuestionAttachments({
+      makeQuestionAttachment({
         questionId: newQuestion.id,
         attachmentId: new UniqueEntityId('2'),
       }),
@@ -76,5 +76,45 @@ describe('Edit Question Use Case', () => {
 
     expect(result.isLeft()).toBe(true);
     expect(result.value).toBeInstanceOf(NotAllowedError);
+  });
+
+  it('should be able to sync and removed attachments when editing a question', async () => {
+    const newQuestion = makeQuestion({
+      authorId: new UniqueEntityId('author-01'),
+    }, new UniqueEntityId('question-01'));
+
+    await inMemoryQuestionsRepository.create(newQuestion);
+
+    inMemoryQuestionAttachmentsRepository.items.push(
+      makeQuestionAttachment({
+        questionId: newQuestion.id,
+        attachmentId: new UniqueEntityId('1'),
+      }),
+      makeQuestionAttachment({
+        questionId: newQuestion.id,
+        attachmentId: new UniqueEntityId('2'),
+      }),
+    );
+
+    const result = await sut.execute({
+      questionId: 'question-01',
+      authorId: 'author-01',
+      content: 'other content',
+      title: 'other title',
+      attachmentsIds: ['1', '3'],
+    });
+
+    expect(result.isRight()).toBe(true);
+    expect(inMemoryQuestionAttachmentsRepository.items).toHaveLength(2);
+    expect(inMemoryQuestionAttachmentsRepository.items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          attachmentId: new UniqueEntityId('1'),
+        }),
+        expect.objectContaining({
+          attachmentId: new UniqueEntityId('3'),
+        }),
+      ]),
+    );
   });
 });

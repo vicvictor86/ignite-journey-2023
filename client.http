@@ -32,6 +32,27 @@ Authorization: Bearer {{accessToken}}
   "content": "new question content 2"
 }
 
+###
+# @name answer_question
+POST {{baseUrl}}/questions/29ba6819-d303-481c-b8ca-abe1eb0253a5/answers
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "content": "new answer content 2"
+}
+
+###
+# @name edit_question
+PUT {{baseUrl}}/questions/29ba6819-d303-481c-b8ca-abe1eb0253a5
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "title": "Edit question 2",
+  "content": "new edit question 2"
+}
+
 ### 
 # @name fetch_recent_questions
 GET {{baseUrl}}/questions?page=1

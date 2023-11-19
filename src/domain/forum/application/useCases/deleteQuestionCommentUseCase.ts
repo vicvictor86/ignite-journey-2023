@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { QuestionCommentsRepository } from '../repositories/questionCommentsRepository';
 import { ResourceNotFoundError } from '../../../../core/errors/resourceNotFound';
 import { NotAllowedError } from '../../../../core/errors/notAllowedErrors';
@@ -10,6 +11,7 @@ interface DeleteQuestionCommentsUseCaseRequest {
 
 type DeleteQuestionCommentsUseCaseResponse = Either<ResourceNotFoundError | NotAllowedError, {}>;
 
+@Injectable()
 export class DeleteQuestionCommentsUseCase {
   constructor(
     private questionCommentsRepository: QuestionCommentsRepository,

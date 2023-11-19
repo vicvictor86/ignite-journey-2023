@@ -10,6 +10,7 @@ import { CreateQuestionUseCase } from '@/domain/forum/application/useCases/creat
 const createQuestionBodySchema = z.object({
   title: z.string(),
   content: z.string(),
+  attachments: z.array(z.string().uuid()),
 });
 
 const bodyValidationPipe = new ZodValidationPipe(createQuestionBodySchema);
@@ -25,14 +26,14 @@ export class CreateQuestionController {
   @Body(bodyValidationPipe) body: CreateQuestionBodySchema,
     @CurrentUser() user: UserPayload,
   ) {
-    const { title, content } = body;
+    const { title, content, attachments } = body;
     const userId = user.sub;
 
     this.createQuestionUseCase.execute({
       authorId: userId,
       title,
       content,
-      attachmentsId: [],
+      attachmentsId: attachments,
     });
   }
 }

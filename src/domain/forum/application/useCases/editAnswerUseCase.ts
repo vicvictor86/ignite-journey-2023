@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { Answer } from '../../enterprise/entities/Answer';
 import { AnswersRepository } from '../repositories/answersRepository';
 import { ResourceNotFoundError } from '../../../../core/errors/resourceNotFound';
@@ -19,6 +20,7 @@ type EditAnswerUseCaseResponse = Either<ResourceNotFoundError | NotAllowedError,
   answer: Answer;
 }>;
 
+@Injectable()
 export class EditAnswerUseCase {
   constructor(
     private answersRepository: AnswersRepository,

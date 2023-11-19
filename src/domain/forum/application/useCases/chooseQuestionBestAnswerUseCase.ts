@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { Question } from '../../enterprise/entities/Question';
 import { AnswersRepository } from '../repositories/answersRepository';
 import { QuestionsRepository } from '../repositories/questionsRepository';
@@ -15,6 +16,7 @@ type ChooseQuestionBestAnswerUseCaseResponse = Either<ResourceNotFoundError | No
 }
 >;
 
+@Injectable()
 export class ChooseQuestionBestAnswerUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,

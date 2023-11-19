@@ -5,7 +5,7 @@ import { makeQuestion } from 'test/factories/makeQuestion';
 import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/InMemoryQuestionAttachmentsRepository';
 import { InMemoryAnswersAttachmentsRepository } from 'test/repositories/InMemoryAnswerAttachmentsRepository';
 import { UniqueEntityId } from '@/core/entities/UniqueEntityId';
-import { ChooseQuestionBestAnswerUseCase } from './chooseQuestionBestAnswer';
+import { ChooseQuestionBestAnswerUseCase } from './chooseQuestionBestAnswerUseCase';
 import { NotAllowedError } from '../../../../core/errors/notAllowedErrors';
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
