@@ -4,7 +4,7 @@ import {
 import { z } from 'zod';
 import { ZodValidationPipe } from '@/infra/http/pipes/zodValidationPipe';
 import { FetchAnswerCommentsUseCase } from '@/domain/forum/application/useCases/fetchAnswerCommentsUseCase';
-import { CommentsPresenter } from '../presenter/commentPresenter';
+import { CommentWithAuthorPresenter } from '../presenter/commentWithAuthorPresenter';
 
 const pageQueryParamSchema = z
   .string()
@@ -37,8 +37,8 @@ export class FetchAnswerCommentsController {
       throw new BadRequestException();
     }
 
-    const { answerComments } = result.value;
+    const { comments } = result.value;
 
-    return { answerComments: answerComments.map(CommentsPresenter.toHTTP) };
+    return { comments: comments.map(CommentWithAuthorPresenter.toHTTP) };
   }
 }

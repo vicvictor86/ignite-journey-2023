@@ -7,18 +7,21 @@ import { InMemoryNotificationsRepository } from 'test/repositories/InMemoryNotif
 import { SpyInstance } from 'vitest';
 import { makeQuestion } from 'test/factories/makeQuestion';
 import { waitFor } from 'test/utils/waitFor';
+import { InMemoryAttachmentsRepository } from 'test/repositories/InMemoryAttachmentsRepository';
+import { InMemoryStudentsRepository } from 'test/repositories/InMemoryStudentsRepository';
 import { AnswerAttachmentsRepository } from '../repositories/answerAttachmentsRepository';
 import { AnswersRepository } from '../repositories/answersRepository';
 import { SendNotificationUseCase } from '@/domain/notification/application/useCases/sendNotificationUseCase';
 import { QuestionsRepository } from '../repositories/questionsRepository';
-import { QuestionAttachmentsRepository } from '../repositories/questionAttachmentsRepository';
 import { NotificationsRepository } from '@/domain/notification/application/repositories/NotificationsRepository';
 import { OnQuestionBestAnswerChosen } from './onQuestionBestAnswerChosen';
 
 let inMemoryQuestionsRepository: QuestionsRepository;
-let inMemoryQuestionsAttachmentsRepository: QuestionAttachmentsRepository;
 let inMemoryAnswerAttachmentsRepository: AnswerAttachmentsRepository;
 let inMemoryAnswersRepository: AnswersRepository;
+let inMemoryQuestionsAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
+let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository;
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
 let inMemoryNotificationsRepository: NotificationsRepository;
 let sendNotificationUseCase: SendNotificationUseCase;
 
@@ -29,6 +32,8 @@ describe('On Question Best Answer Chosen', () => {
     inMemoryQuestionsAttachmentsRepository = new InMemoryQuestionAttachmentsRepository();
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionsAttachmentsRepository,
+      inMemoryAttachmentsRepository,
+      inMemoryStudentsRepository,
     );
     inMemoryAnswerAttachmentsRepository = new InMemoryAnswersAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(

@@ -1,19 +1,23 @@
+/* eslint-disable max-len */
 import { InMemoryAnswersRepository } from 'test/repositories/InMemoryAnswersRepository';
 import { makeAnswer } from 'test/factories/makeAnswer';
 import { InMemoryAnswerCommentsRepository } from 'test/repositories/InMemoryAnswerCommentsRepository';
 import { InMemoryAnswersAttachmentsRepository } from 'test/repositories/InMemoryAnswerAttachmentsRepository';
+import { InMemoryStudentsRepository } from 'test/repositories/InMemoryStudentsRepository';
 import { CommentOnAnswerUseCase } from './commentOnAnswerRepositoryUseCase';
 
 let inMemoryAnswersAttachmentsRepository: InMemoryAnswersAttachmentsRepository;
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository;
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
 let sut: CommentOnAnswerUseCase;
 
 describe('Comment On Answer Use Case', () => {
   beforeEach(() => {
     inMemoryAnswersAttachmentsRepository = new InMemoryAnswersAttachmentsRepository();
     inMemoryAnswersRepository = new InMemoryAnswersRepository(inMemoryAnswersAttachmentsRepository);
-    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository();
+    inMemoryStudentsRepository = new InMemoryStudentsRepository();
+    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository(inMemoryStudentsRepository);
     sut = new CommentOnAnswerUseCase(
       inMemoryAnswersRepository,
       inMemoryAnswerCommentsRepository,

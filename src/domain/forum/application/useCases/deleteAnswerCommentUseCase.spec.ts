@@ -1,14 +1,18 @@
+/* eslint-disable max-len */
 import { InMemoryAnswerCommentsRepository } from 'test/repositories/InMemoryAnswerCommentsRepository';
 import { makeAnswerComment } from 'test/factories/makeAnswerComment';
+import { InMemoryStudentsRepository } from 'test/repositories/InMemoryStudentsRepository';
 import { DeleteAnswerCommentsUseCase } from './deleteAnswerCommentUseCase';
 import { NotAllowedError } from '../../../../core/errors/notAllowedErrors';
 
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository;
+let inMemoryStudentsRepository: InMemoryStudentsRepository;
 let sut: DeleteAnswerCommentsUseCase;
 
 describe('Delete Question Comment Use Case', () => {
   beforeEach(() => {
-    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository();
+    inMemoryStudentsRepository = new InMemoryStudentsRepository();
+    inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository(inMemoryStudentsRepository);
     sut = new DeleteAnswerCommentsUseCase(inMemoryAnswerCommentsRepository);
   });
 
